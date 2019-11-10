@@ -26,7 +26,7 @@ bool World::draw_all(int fps)
 	//draw each wall and manage collision
 	for(vector<Wall>::iterator it(walls.begin());it!=walls.end();it++)
 	{
-		it->draw(it->getPosX()-((collision)?0:100/fps));
+		it->draw(it->getPosX()-((collision)?0:200/fps));
 
 		//increase point if the bird pass through a wall
 		if(it->getPosX()+80/2<m_bird->getPosX()&&!countWall)
