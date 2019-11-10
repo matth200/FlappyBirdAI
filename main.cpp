@@ -5,6 +5,8 @@
 #include <thread>
 
 #include "wall.h"
+#include "bird.h"
+#include "world.h"
 #include "draw.h"
 
 #define FPS 30.0
@@ -33,8 +35,10 @@ int main(int argc , char *argv[])
 	time_point start, end;
 	int deltaTime = 0;
 
-	Wall w(screen);
-	int x = WIDTH;
+	World world(screen,5,200);
+
+	Bird bird(screen,100);
+	world.setBird(&bird);
 
 	SDL_Event event;
 	while(continuer)
@@ -57,7 +61,7 @@ int main(int argc , char *argv[])
 						break;
 
 						case SDLK_SPACE:
-
+							bird.jump();
 						break;
 					}
 				break;
@@ -66,10 +70,7 @@ int main(int argc , char *argv[])
 		SDL_FillRect(screen,0,SDL_MapRGB(screen->format,0,0,0));
 		//draw
 
-		w.draw(x);
-		x-=100/FPS;
-
-		Draw::drawCircle(screen,100,100,50,SDL_MapRGB(screen->format,255,255,255));
+		world.draw_all(FPS);
 
 		SDL_Flip(screen);
 		end = chrono::high_resolution_clock::now();

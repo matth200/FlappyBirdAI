@@ -5,18 +5,19 @@
 #include <vector>
 
 #include "draw.h"
+#include "bird.h"
 #include "wall.h"
 
 class World{
 public:
-	World(SDL_Surface *screen, int nbr_wall);
+	World(SDL_Surface *screen, int nbr_wall, int gap);
 	~World();
-  	void setBird(&Bird bird);
-	void draw_all();
+  	void setBird(Bird *bird);
+	void draw_all(int fps);
 protected:
-	int m_nbr_wall;
-	Bird m_bird;
-	vector<Wall> walls;
+	int m_nbr_wall, m_gap;
+	Bird *m_bird;
+	std::vector<Wall> walls;
 	int avancement;
 	SDL_Surface *m_screen;
 };

@@ -29,7 +29,7 @@ void Draw::drawRect(SDL_Surface *screen, int x, int y, int w, int h, Uint32 colo
 
 void Draw::drawCircle(SDL_Surface *screen, int x, int y, int r, Uint32 color, int resolution)
 {
-	setPixel(screen,x,y,color);
+	//setPixel(screen,x,y,color);
 
 	double angle_base = 2*M_PI/double(resolution);
 
