@@ -8,16 +8,34 @@ Bird::~Bird()
 {
 }
 
+int Bird::getPosX() const
+{
+	return m_x;
+}
+
 bool Bird::draw(int fps, Wall *target)
 {
+	bool collision = false;
+
 	if(!pause){
 		//on ajoute l'acceleration
 		m_y+= forceY;
 		//acceleration de chute
 		forceY+=300.0/pow(fps,2);
 	}
+	//stop when pass through the sky
+	if(m_y<20)
+	{
+		m_y=20;
+		forceY=0;
+	}
 
-	bool collision = drawCircle(m_screen,m_x,m_y,20,SDL_MapRGB(m_screen->format,200,100,25),target);
+	collision = drawCircle(m_screen,m_x,m_y,20,SDL_MapRGB(m_screen->format,200,100,25),target);
+
+	//touch the floor
+	if(m_y>=HEIGHT-20)
+		collision = true;
+
 	if(collision)
 		pause = 1; 
 	
