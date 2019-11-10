@@ -35,9 +35,9 @@ int main(int argc , char *argv[])
 	time_point start, end;
 	int deltaTime = 0;
 
-	World world(screen,5,200);
+	World world(screen,4,300);
 
-	Bird bird(screen,100);
+	Bird bird(screen,200);
 	world.setBird(&bird);
 
 	SDL_Event event;

@@ -25,7 +25,7 @@ void World::draw_all(int fps)
 	for(vector<Wall>::iterator it(walls.begin());it!=walls.end();it++)
 	{
 		it->draw(it->getPosX()-100/fps);
-		if(it->getPosX()<-80)
+		if(it->getPosX()<-90)
 		{
 			walls.erase(it);
 			//nouveau mur avec une distance de gap+80 avec le dernier mur

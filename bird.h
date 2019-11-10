@@ -14,7 +14,8 @@ public:
 protected:
 	SDL_Surface *m_screen;
 	int m_x;
-	int m_y;
+	double m_y;
+	double forceY;
 	int m_jump;
 };
 
