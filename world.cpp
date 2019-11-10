@@ -20,8 +20,6 @@ void World::setBird(Bird *bird)
 
 void World::draw_all(int fps)
 {
-	m_bird->draw(fps);
-
 	for(vector<Wall>::iterator it(walls.begin());it!=walls.end();it++)
 	{
 		it->draw(it->getPosX()-100/fps);
@@ -32,4 +30,6 @@ void World::draw_all(int fps)
 			walls.push_back(Wall(m_screen,walls[walls.size()-1].getPosX()+m_gap+80));
 		}
 	}
+
+	m_bird->draw(fps, &(walls[0]));
 }

@@ -4,10 +4,11 @@
 #include <chrono>
 #include <thread>
 
+
+#include "draw.h"
 #include "wall.h"
 #include "bird.h"
 #include "world.h"
-#include "draw.h"
 
 #define FPS 30.0
 

@@ -17,6 +17,7 @@ public:
 	~Wall();
 	void draw(int x);
 	int getPosX();
+	bool getCollision(int x, int y);
 	double getTopPos(int x, int y, bool a);
 	double getBottomPos(int x, int y, bool a);
 
@@ -27,5 +28,10 @@ protected:
 	SDL_Surface *m_screen;
 	int m_top_hole, m_bottom_hole;
 };
+
+//surcharge pour detection de collision
+bool setPixel(SDL_Surface *screen, int x, int y, Uint32 color, Wall *w);
+bool drawLine(SDL_Surface *screen, int x1, int y1, int x2, int y2, Uint32 color, Wall *w);
+bool drawCircle(SDL_Surface *screen, int x, int y, int r, Uint32 color, Wall *w, int resolution = 30);
 
 #endif

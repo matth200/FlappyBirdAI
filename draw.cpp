@@ -31,7 +31,7 @@ void Draw::drawCircle(SDL_Surface *screen, int x, int y, int r, Uint32 color, in
 {
 	//setPixel(screen,x,y,color);
 
-	double angle_base = 2*M_PI/double(resolution);
+	double angle_base = 2*M_PI/double(resolution);//360°/nbr_d'angle
 
 	for(int i(0);i<resolution;i++)
 	{

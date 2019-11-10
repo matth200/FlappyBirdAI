@@ -2,21 +2,21 @@
 #define DEF_BIRD
 
 #include <SDL/SDL.h>
+#include <iostream>
 
-#include "draw.h"
+#include "wall.h"
 
 class Bird{
 public:
 	Bird(SDL_Surface *screen, int x);
 	~Bird();
-	void draw(int fps);
+	void draw(int fps, Wall *target);
 	void jump();
 protected:
 	SDL_Surface *m_screen;
 	int m_x;
 	double m_y;
 	double forceY;
-	int m_jump;
 };
 
 #endif
