@@ -4,9 +4,10 @@
 #include <chrono>
 #include <thread>
 
+#include "wall.h"
 #include "draw.h"
 
-#define FPS 60.0
+#define FPS 30.0
 
 using namespace std;
 typedef chrono::high_resolution_clock::time_point time_point;
@@ -18,6 +19,8 @@ int main(int argc , char *argv[])
 		cout << "Error to init video" << endl;
 	atexit(SDL_Quit);
 
+	srand(time(0));
+
 	SDL_Surface *screen = 0;
 	screen = SDL_SetVideoMode(WIDTH,HEIGHT,32,SDL_HWSURFACE|SDL_DOUBLEBUF);
 	if(screen==0)
@@ -25,14 +28,15 @@ int main(int argc , char *argv[])
 
 	SDL_WM_SetCaption("Flappy Bird",0);
 
+	//variable to the loop
 	bool continuer = 1;
-
 	time_point start, end;
 	int deltaTime = 0;
 
-	SDL_Event event;
+	Wall w(screen);
+	int x = 0;
 
-	int x = 0, y = 0;
+	SDL_Event event;
 	while(continuer)
 	{
 		start = chrono::high_resolution_clock::now();
@@ -46,30 +50,29 @@ int main(int argc , char *argv[])
 				break; 
 
 				case SDL_KEYDOWN:
-				break;
-
-				case SDL_KEYUP:
-				break;
-
-				case SDL_MOUSEMOTION:
-					x = event.button.x;
-					y = event.button.y;
+					switch(event.key.keysym.sym)
+					{
+						case SDLK_ESCAPE:
+							continuer = 0;
+						break;
+					}
 				break;
 			}
 		}
-
-
 		SDL_FillRect(screen,0,SDL_MapRGB(screen->format,0,0,0));
+		//draw
 
-		Draw::drawLine(screen,200,200,x,y,SDL_MapRGB(screen->format,255,255,255));
-		Draw::drawSquare(screen,200,200,x-200,y-200,SDL_MapRGB(screen->format,200,200,200));
+		w.draw(WIDTH-x);
+		x++;
 
 		SDL_Flip(screen);
 		end = chrono::high_resolution_clock::now();
 		deltaTime = chrono::duration_cast<chrono::milliseconds>(end-start).count();
 		//on respecte les FPS spécifié
-		if(1000.0/FPS<deltaTime)
-			this_thread::sleep_for(chrono::milliseconds(deltaTime-int(1000.0/FPS)));
+		if(1000.0/FPS>deltaTime)
+			this_thread::sleep_for(chrono::milliseconds(int(1000.0/FPS)-deltaTime));
+		//deltaTime = chrono::duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now()-start).count();
+		//cout << "FPS : " << 1000.0/deltaTime << " deltaTime : " << deltaTime << endl;
 	}
 	return 0;
 }
