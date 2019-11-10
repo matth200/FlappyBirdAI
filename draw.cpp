@@ -26,3 +26,15 @@ void Draw::drawRect(SDL_Surface *screen, int x, int y, int w, int h, Uint32 colo
 	drawLine(screen,x+w,y+h,x,y+h,color);
 	drawLine(screen,x,y+h,x,y,color);
 }
+
+void Draw::drawCircle(SDL_Surface *screen, int x, int y, int r, Uint32 color, int resolution)
+{
+	setPixel(screen,x,y,color);
+
+	double angle_base = 2*M_PI/double(resolution);
+
+	for(int i(0);i<resolution;i++)
+	{
+		drawLine(screen,x+sin(angle_base*(i+1))*r,y+cos(angle_base*(i+1))*r,x+sin(angle_base*(i+2))*r,y+cos(angle_base*(i+2))*r,color);
+	}
+}

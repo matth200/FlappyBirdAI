@@ -34,7 +34,7 @@ int main(int argc , char *argv[])
 	int deltaTime = 0;
 
 	Wall w(screen);
-	int x = 0;
+	int x = WIDTH;
 
 	SDL_Event event;
 	while(continuer)
@@ -55,6 +55,10 @@ int main(int argc , char *argv[])
 						case SDLK_ESCAPE:
 							continuer = 0;
 						break;
+
+						case SDLK_SPACE:
+
+						break;
 					}
 				break;
 			}
@@ -62,8 +66,10 @@ int main(int argc , char *argv[])
 		SDL_FillRect(screen,0,SDL_MapRGB(screen->format,0,0,0));
 		//draw
 
-		w.draw(WIDTH-x);
-		x++;
+		w.draw(x);
+		x-=100/FPS;
+
+		Draw::drawCircle(screen,100,100,50,SDL_MapRGB(screen->format,255,255,255));
 
 		SDL_Flip(screen);
 		end = chrono::high_resolution_clock::now();

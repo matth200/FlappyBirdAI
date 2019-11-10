@@ -10,14 +10,19 @@
 
 #include "draw.h"
 
+struct DoubleDist{
+	double dist1;
+	double dist2;
+};
+
 class Wall
 {
 public:
 	Wall(SDL_Surface *screen, int width = 80, int min_wall = 10, int hole_size = 100);
 	~Wall();
 	void draw(int x);
-	Pos getTopPos(bool a = 0);
-	Pos getBottomPos(bool a = 0);
+	DoubleDist getTopPos(bool a = 0);
+	DoubleDist getBottomPos(bool a = 0);
 
 protected:
 	int m_min_wall, m_hole_size, m_width; 

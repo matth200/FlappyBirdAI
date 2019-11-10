@@ -16,12 +16,12 @@ void Wall::draw(int x)
 	Draw::drawRect(m_screen,x,0,m_width,m_min_wall+m_top_hole,color);
 	Draw::drawRect(m_screen,x,HEIGHT-1,m_width,-(m_min_wall+m_bottom_hole),color);
 }
-Pos Wall::getTopPos(bool a)
+DoubleDist Wall::getTopPos(bool a)
 {
 
 }
 
-Pos Wall::getBottomPos(bool a)
+DoubleDist Wall::getBottomPos(bool a)
 {
 
 }
