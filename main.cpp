@@ -5,6 +5,7 @@
 
 #include <chrono>
 #include <thread>
+#include <string>
 
 
 #include "draw.h"
@@ -42,11 +43,19 @@ int main(int argc , char *argv[])
 	time_point start, end;
 	int deltaTime = 0;
 
-	TTF_Font *police = TTF_OpenFont("pixel_font.ttf",20);
-	SDL_Surface *Label = 0;
-	SDL_Rect pos_label;
-	pos_label.x = 100;
-	pos_label.y = 100;
+	TTF_Font *police = TTF_OpenFont("pixel_font.ttf",300);
+
+	SDL_Surface *Label = 0, *Title = TTF_RenderText_Blended(police,"Perdu",SDL_Color({255,255,255}));
+
+	TTF_CloseFont(police);
+	police = TTF_OpenFont("pixel_font.ttf",20);
+
+	SDL_Rect pos_label, pos_title;
+	pos_label.x = 20;
+	pos_label.y = 50;
+
+	pos_title.x = 50;
+	pos_title.y = 200;
 
 	World world(screen,4,300);
 
@@ -82,11 +91,12 @@ int main(int argc , char *argv[])
 		}
 		SDL_FillRect(screen,0,SDL_MapRGB(screen->format,0,0,0));
 		
-		Label = TTF_RenderText_Solid(police,"Testttt",SDL_Color({255,255,255}));
-		SDL_BlitSurface(screen,NULL,Label,&pos_label);
+		Label = TTF_RenderText_Blended(police,(string("Point(s): ")+to_string(bird.getPoint())).c_str(),SDL_Color({255,255,255}));
+		SDL_BlitSurface(Label,NULL,screen,&pos_label);
 
 		//draw
-		world.draw_all(FPS);
+		if(world.draw_all(FPS))
+			SDL_BlitSurface(Title,NULL,screen,&pos_title);
 
 		SDL_Flip(screen);
 		SDL_FreeSurface(Label);

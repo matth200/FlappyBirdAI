@@ -1,7 +1,7 @@
 #include "bird.h"
 using namespace std;
 
-Bird::Bird(SDL_Surface *screen,int x):m_screen(screen),m_x(x),m_y(200),forceY(0),pause(0)
+Bird::Bird(SDL_Surface *screen,int x):m_screen(screen),m_x(x),m_y(200),forceY(0),pause(0),m_point(0)
 {
 }
 Bird::~Bird()
@@ -11,6 +11,16 @@ Bird::~Bird()
 int Bird::getPosX() const
 {
 	return m_x;
+}
+
+int Bird::getPoint() const
+{
+	return m_point;
+}
+
+void Bird::increasePoint()
+{
+	m_point++;
 }
 
 bool Bird::draw(int fps, Wall *target)

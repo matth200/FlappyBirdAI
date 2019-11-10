@@ -1,7 +1,7 @@
 #include "world.h"
 using namespace std;
 
-World::World(SDL_Surface *screen, int nbr_wall, int gap):m_screen(screen),m_nbr_wall(nbr_wall),m_gap(gap),m_point(0),countWall(0)
+World::World(SDL_Surface *screen, int nbr_wall, int gap):m_screen(screen),m_nbr_wall(nbr_wall),m_gap(gap),countWall(0)
 {
 	for(int i(0);i<nbr_wall;i++)
 	{
@@ -11,11 +11,6 @@ World::World(SDL_Surface *screen, int nbr_wall, int gap):m_screen(screen),m_nbr_
 
 World::~World()
 {
-}
-
-int World::getPoint() const
-{
-	return m_point;
 }
 
 void World::setBird(Bird *bird)
@@ -36,8 +31,8 @@ bool World::draw_all(int fps)
 		//increase point if the bird pass through a wall
 		if(it->getPosX()+80/2<m_bird->getPosX()&&!countWall)
 		{
-			m_point++;
-			cout << m_point << endl;
+			m_bird->increasePoint();
+			cout << m_bird->getPoint() << endl;
 			countWall = 1;
 		}
 

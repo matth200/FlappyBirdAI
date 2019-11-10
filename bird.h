@@ -11,11 +11,14 @@ public:
 	Bird(SDL_Surface *screen, int x);
 	~Bird();
 	int getPosX() const;
+	int getPoint() const;
+	void increasePoint();
 	bool draw(int fps, Wall *target);
 	void jump();
 protected:
 	SDL_Surface *m_screen;
 	int m_x;
+	int m_point;
 	double m_y; 
 	bool pause;
 	double forceY;
