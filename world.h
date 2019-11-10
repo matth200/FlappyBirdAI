@@ -13,7 +13,7 @@ public:
 	World(SDL_Surface *screen, int nbr_wall, int gap);
 	~World();
   	void setBird(Bird *bird);
-	void draw_all(int fps);
+	bool draw_all(int fps);
 protected:
 	int m_nbr_wall, m_gap;
 	Bird *m_bird;

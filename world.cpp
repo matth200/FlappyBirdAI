@@ -18,11 +18,12 @@ void World::setBird(Bird *bird)
 	m_bird = bird;
 }
 
-void World::draw_all(int fps)
+bool World::draw_all(int fps)
 {
+	bool collision = m_bird->draw(fps, &(walls[0]));
 	for(vector<Wall>::iterator it(walls.begin());it!=walls.end();it++)
 	{
-		it->draw(it->getPosX()-100/fps);
+		it->draw(it->getPosX()-((collision)?0:100/fps));
 		if(it->getPosX()<-90)
 		{
 			walls.erase(it);
@@ -31,5 +32,5 @@ void World::draw_all(int fps)
 		}
 	}
 
-	m_bird->draw(fps, &(walls[0]));
+	return collision;
 }

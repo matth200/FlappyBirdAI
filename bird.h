@@ -10,12 +10,13 @@ class Bird{
 public:
 	Bird(SDL_Surface *screen, int x);
 	~Bird();
-	void draw(int fps, Wall *target);
+	bool draw(int fps, Wall *target);
 	void jump();
 protected:
 	SDL_Surface *m_screen;
 	int m_x;
-	double m_y;
+	double m_y; 
+	bool pause;
 	double forceY;
 };
 
