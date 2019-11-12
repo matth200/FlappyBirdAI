@@ -13,6 +13,24 @@ World::~World()
 {
 }
 
+
+int World::getDistanceX(int index){
+	int x = (*m_birds)[index].getPosX();
+	for(vector<Wall>::iterator it(walls.begin());it!=walls.end();it++)
+	{
+		if(it->getPosX()>=(*m_birds)[0].getPosX()+20)
+		{
+			return it->getPosX()-x-20;
+		}
+	}
+}
+int World::getDistanceTop(int index){
+
+}
+int World::getDistanceBottom(int index){
+
+}
+
 void World::setBirds(vector<Bird> *birds)
 {
 	m_birds = birds;
@@ -20,15 +38,12 @@ void World::setBirds(vector<Bird> *birds)
 
 bool World::draw_all(int fps)
 {
-	//draw bird and notice about the collision
-	bool collision = ((*m_birds)[0].draw(fps, &(walls[0])))?1:collision;
-
-	//animation autres oiseaux
-	for(int i(1);i<m_birds->size();i++)
+	bool collision = 1;
+	for(int i(0);i<m_birds->size();i++)
 	{
-		(*m_birds)[i].draw(fps, &(walls[0]));
+		collision = ((*m_birds)[i].draw(fps, &(walls[0])))?collision:0;
 	}
-	
+	cout << "bird0 distance : " << getDistanceX(0) << endl;
 	//draw each wall and manage collision
 	for(vector<Wall>::iterator it(walls.begin());it!=walls.end();it++)
 	{

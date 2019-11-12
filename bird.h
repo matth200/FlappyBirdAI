@@ -18,6 +18,8 @@ public:
 	bool draw(int fps, Wall *target);
 	void jump();
 protected:
+	static int m_instance;
+	int numero;
 	SDL_Surface *m_screen;
 	bool alive;
 	int m_x;

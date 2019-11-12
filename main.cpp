@@ -60,7 +60,9 @@ int main(int argc , char *argv[])
 
 	World world(screen,4,350);
 
-	vector<Bird> listeBirds(2,Bird(screen,200));
+	vector<Bird> listeBirds;
+	for(int i(0);i<2;i++)
+		listeBirds.push_back(Bird(screen,200));
 	world.setBirds(&listeBirds);
 
 	SDL_Event event;
@@ -96,8 +98,9 @@ int main(int argc , char *argv[])
 		SDL_BlitSurface(Label,NULL,screen,&pos_label);
 
 		//draw the title "perdu" if it's lost
-		if(world.draw_all(FPS))
-			SDL_BlitSurface(Title,NULL,screen,&pos_title);
+		world.draw_all(FPS);
+
+		//SDL_BlitSurface(Title,NULL,screen,&pos_title);
 
 		SDL_Flip(screen);
 		SDL_FreeSurface(Label);
