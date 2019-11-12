@@ -12,13 +12,13 @@ class World{
 public:
 	World(SDL_Surface *screen, int nbr_wall, int gap);
 	~World();
-  	void setBird(Bird *bird);
+  	void setBirds(std::vector<Bird> *birds);
 	bool draw_all(int fps);
 protected:
 	int m_nbr_wall, m_gap;
-	Bird *m_bird;
 	std::vector<Wall> walls;
-	bool countWall;
+	bool m_countWall;
+	std::vector<Bird> *m_birds;
 	int avancement;
 	SDL_Surface *m_screen;
 };

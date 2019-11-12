@@ -13,7 +13,7 @@
 class Wall
 {
 public:
-	Wall(SDL_Surface *screen,int x, int width = 80, int min_wall = 10, int hole_size = 150);
+	Wall(SDL_Surface *screen,int x, int width = 80, int min_wall = 80, int hole_size = 150);
 	~Wall();
 	void draw(int x);
 	int getPosX();

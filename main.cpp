@@ -6,6 +6,7 @@
 #include <chrono>
 #include <thread>
 #include <string>
+#include <vector>
 
 
 #include "draw.h"
@@ -57,10 +58,10 @@ int main(int argc , char *argv[])
 	pos_title.x = 50;
 	pos_title.y = 200;
 
-	World world(screen,4,300);
+	World world(screen,4,350);
 
-	Bird bird(screen,200);
-	world.setBird(&bird);
+	vector<Bird> listeBirds(2,Bird(screen,200));
+	world.setBirds(&listeBirds);
 
 	SDL_Event event;
 	while(continuer)
@@ -83,7 +84,7 @@ int main(int argc , char *argv[])
 						break;
 
 						case SDLK_SPACE:
-							bird.jump();
+							listeBirds[0].jump();
 						break;
 					}
 				break;
@@ -91,10 +92,10 @@ int main(int argc , char *argv[])
 		}
 		SDL_FillRect(screen,0,SDL_MapRGB(screen->format,0,0,0));
 		
-		Label = TTF_RenderText_Blended(police,(string("Point(s): ")+to_string(bird.getPoint())).c_str(),SDL_Color({255,255,255}));
+		Label = TTF_RenderText_Blended(police,(string("Point(s): ")+to_string(listeBirds[0].getPoint())).c_str(),SDL_Color({255,255,255}));
 		SDL_BlitSurface(Label,NULL,screen,&pos_label);
 
-		//draw
+		//draw the title "perdu" if it's lost
 		if(world.draw_all(FPS))
 			SDL_BlitSurface(Title,NULL,screen,&pos_title);
 

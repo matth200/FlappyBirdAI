@@ -1,7 +1,7 @@
 #include "world.h"
 using namespace std;
 
-World::World(SDL_Surface *screen, int nbr_wall, int gap):m_screen(screen),m_nbr_wall(nbr_wall),m_gap(gap),countWall(0)
+World::World(SDL_Surface *screen, int nbr_wall, int gap):m_screen(screen),m_nbr_wall(nbr_wall),m_gap(gap),m_countWall(0)
 {
 	for(int i(0);i<nbr_wall;i++)
 	{
@@ -13,27 +13,41 @@ World::~World()
 {
 }
 
-void World::setBird(Bird *bird)
+void World::setBirds(vector<Bird> *birds)
 {
-	m_bird = bird;
+	m_birds = birds;
 }
 
 bool World::draw_all(int fps)
 {
 	//draw bird and notice about the collision
-	bool collision = m_bird->draw(fps, &(walls[0]));
+	bool collision = ((*m_birds)[0].draw(fps, &(walls[0])))?1:collision;
 
+	//animation autres oiseaux
+	for(int i(1);i<m_birds->size();i++)
+	{
+		(*m_birds)[i].draw(fps, &(walls[0]));
+	}
+	
 	//draw each wall and manage collision
 	for(vector<Wall>::iterator it(walls.begin());it!=walls.end();it++)
 	{
-		it->draw(it->getPosX()-((collision)?0:200/fps));
+		int speed = 200;
+		it->draw(it->getPosX()-((collision)?0:speed/fps));
 
 		//increase point if the bird pass through a wall
-		if(it->getPosX()+80/2<m_bird->getPosX()&&!countWall)
+		if(it->getPosX()+80/2<(*m_birds)[0].getPosX()&&!m_countWall)
 		{
-			m_bird->increasePoint();
-			cout << m_bird->getPoint() << endl;
-			countWall = 1;
+			for(int i(0);i<m_birds->size();i++)
+			{
+				if((*m_birds)[i].isAlive())
+				{
+					(*m_birds)[i].increasePoint();
+				}
+			}
+			cout << (*m_birds)[0].getPoint() << endl;
+
+			m_countWall = 1;
 		}
 
 		//if the wall is not display we remove it and add a new wall at the back
@@ -44,7 +58,7 @@ bool World::draw_all(int fps)
 
 			//nouveau mur avec une distance de gap+80 avec le dernier mur
 			walls.push_back(Wall(m_screen,walls[walls.size()-1].getPosX()+m_gap+80));
-			countWall = 0;
+			m_countWall = 0;
 		}
 	}
 
