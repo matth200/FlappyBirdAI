@@ -107,28 +107,27 @@ MachineLearning::MachineLearning(int sizeInput)
 	Lines.push_back(NetworkNeuron(sizeInput,0));
 }
 
-void MachineLearning::setInput(char *data)
+void MachineLearning::setInput(double *data)
 {
 	double value = 0;
 	for(int i(0);i<Lines[0].get_number_neuron();i++)
 	{
-		value = (*((unsigned char*)(data+i)))/255.0;
+		value = (*((double*)(data+i)));
 		Lines[0].get_neuron(i)->set_value(value);
 	}
 }
 
-void MachineLearning::setWeightRandom()
+void MachineLearning::setWeightRandom(int w, int b)
 {
-	srand(time(NULL));
 	for(int l(0);l<Lines.size()-1;l++)
 	{
 		for(int j(0);j<Lines[l+1].get_number_neuron();j++)
 		{
 			for(int i(0);i<Lines[l+1].get_neuron(j)->numberConnection();i++)
 			{
-				Lines[l+1].get_neuron(j)->set_weight(i,rand()%2000/1000.0-1.0);  
+				Lines[l+1].get_neuron(j)->set_weight(i,rand()%(w*1000)/1000.0-w/2.0);  
 			}
-			Lines[l+1].get_neuron(j)->set_bias(rand()%2000/1000.0-1.0);
+			Lines[l+1].get_neuron(j)->set_bias(rand()%(b*1000)/1000.0-b/2.0);
 		}
 	}
 }

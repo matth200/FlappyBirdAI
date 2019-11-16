@@ -8,11 +8,14 @@
 #include "bird.h"
 #include "wall.h"
 
+#define WORLD_SPEED 200
+
 class World{
 public:
 	World(SDL_Surface *screen, int nbr_wall, int gap);
 	~World();
   	void setBirds(std::vector<Bird> *birds);
+  	int getAvancement() const;
   	int getDistanceX(int index);
   	int getDistanceTop(int index);
   	int getDistanceBottom(int index);
@@ -23,7 +26,7 @@ protected:
 	std::vector<Wall> walls;
 	bool m_countWall;
 	std::vector<Bird> *m_birds;
-	int avancement;
+	int m_distanceDone;
 	SDL_Surface *m_screen;
 };
 

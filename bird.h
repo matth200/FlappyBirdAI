@@ -8,24 +8,23 @@
 
 class Bird{
 public:
-	Bird(SDL_Surface *screen, int x);
+	Bird(SDL_Surface *screen, int x, int speed);
 	~Bird();
 	bool isAlive() const;
 	void setPosX(int x);
+	int getPosY() const;
 	int getPosX() const;
 	int getPoint() const;
+	int getScore() const;
 	void increasePoint();
 	bool draw(int fps, Wall *target);
 	void jump();
 protected:
 	static int m_instance;
-	int numero;
 	SDL_Surface *m_screen;
 	bool alive;
-	int m_x;
-	int m_point;
-	double m_y; 
-	double forceY;
+	int m_x, m_point, numero, m_speed, m_score;
+	double m_y, forceY;
 };
 
 #endif

@@ -39,7 +39,17 @@ double Wall::dist(int x1, int y1, int x2, int y2)
 	return sqrt(pow(x2-x1,2)+pow(y1-y2,2));
 }
 
-double Wall::getTopPos(int x, int y, bool a)
+int Wall::getDiffTop(int y) const
+{
+	return (m_min_wall+m_top_hole)-y+20;
+}
+
+int Wall::getDiffBottom(int y) const
+{
+	return HEIGHT-(m_min_wall+m_bottom_hole)-y-20;
+}
+
+double Wall::getTopDist(int x, int y, bool a)
 {
 	if(a==0){
 		return dist(m_x,m_min_wall+m_top_hole,x,y);
@@ -48,7 +58,7 @@ double Wall::getTopPos(int x, int y, bool a)
 	}
 }
 
-double Wall::getBottomPos(int x, int y, bool a)
+double Wall::getBottomDist(int x, int y, bool a)
 {
 	if(a==0){
 		return dist(m_x,HEIGHT-1-(m_min_wall+m_bottom_hole),x,y);

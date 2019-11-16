@@ -52,12 +52,12 @@ class MachineLearning
 {
 public:
 	MachineLearning(int sizeInput);
-	void setInput(char *data);
-	void setWeightRandom();
-       	void calcul();
+	void setInput(double *data);
+	void setWeightRandom(int w = 2, int b = 2);
+    void calcul();
 	double getZ(int l, int j);	
 	double getOutput(int index);
-        int numberNeuronIn(int i);	
+    int numberNeuronIn(int i);	
 	void addColumn(int numberNeuron);
 	int getNumberColumn() const; 
 	double getPrecision(NetworkNeuron& result);

@@ -14,11 +14,14 @@
 #include "bird.h"
 #include "world.h"
 
+#include "m_learning.h"
+
 #define FPS 30.0
+#define NBR_POPULATION 4
+#define MAX_VIEW 400.0
 
 using namespace std;
 typedef chrono::high_resolution_clock::time_point time_point;
-
 
 int main(int argc , char *argv[])
 {
@@ -60,10 +63,23 @@ int main(int argc , char *argv[])
 
 	World world(screen,4,350);
 
+	vector<MachineLearning> brains;
 	vector<Bird> listeBirds;
-	for(int i(0);i<2;i++)
-		listeBirds.push_back(Bird(screen,200));
+
+	for(int i(0);i<NBR_POPULATION;i++)
+	{
+		MachineLearning m(3);
+		m.addColumn(6);
+		m.addColumn(1);
+
+		m.setWeightRandom(50,50);
+		
+		brains.push_back(m);
+
+		listeBirds.push_back(Bird(screen,200,WORLD_SPEED));
+	}
 	world.setBirds(&listeBirds);
+
 
 	SDL_Event event;
 	while(continuer)
@@ -86,21 +102,61 @@ int main(int argc , char *argv[])
 						break;
 
 						case SDLK_SPACE:
-							listeBirds[0].jump();
+							//only if we want to play without IA
+							//listeBirds[0].jump();
 						break;
 					}
 				break;
 			}
 		}
 		SDL_FillRect(screen,0,SDL_MapRGB(screen->format,0,0,0));
-		
+		 
 		Label = TTF_RenderText_Blended(police,(string("Point(s): ")+to_string(listeBirds[0].getPoint())).c_str(),SDL_Color({255,255,255}));
 		SDL_BlitSurface(Label,NULL,screen,&pos_label);
 
-		//draw the title "perdu" if it's lost
-		world.draw_all(FPS);
+		//calcul NeuralNetwork
+		for(int i(0);i<NBR_POPULATION;i++)
+		{
+			double dX = world.getDistanceX(i), dTop = world.getDistanceTop(i)+MAX_VIEW/2, dBottom = world.getDistanceBottom(i)+MAX_VIEW/2;
 
-		//SDL_BlitSurface(Title,NULL,screen,&pos_title);
+			//max
+			dX = (dX>MAX_VIEW)?MAX_VIEW:dX;
+			dTop = (dTop>MAX_VIEW)?MAX_VIEW:dTop;
+			dBottom = (dBottom>MAX_VIEW)?MAX_VIEW:dBottom;
+
+			//min
+			dTop = (dTop<0)?0:dTop;
+			dBottom = (dBottom<0)?0:dBottom;
+
+			//range(0,1)
+			dX/=MAX_VIEW;
+			dTop/=MAX_VIEW;
+			dBottom/=MAX_VIEW;
+
+			double data[3];
+			data[0] = dX;
+			data[1] = dTop;
+			data[2] = dBottom;
+
+			brains[i].setInput(data);
+			brains[i].calcul();
+
+			if(brains[i].getOutput(0)>=0.5)
+			{
+				listeBirds[i].jump();
+			}
+
+			cout << "bird n°" << i << " output=" << brains[i].getOutput(0) << endl;
+		}
+
+
+		//draw the title "perdu" if it's lost
+		if(world.draw_all(FPS))
+		{
+			//population all dead
+			SDL_BlitSurface(Title,NULL,screen,&pos_title);
+
+		}
 
 		SDL_Flip(screen);
 		SDL_FreeSurface(Label);

@@ -18,8 +18,10 @@ public:
 	void draw(int x);
 	int getPosX();
 	bool getCollision(int x, int y);
-	double getTopPos(int x, int y, bool a);
-	double getBottomPos(int x, int y, bool a);
+	double getTopDist(int x, int y, bool a);
+	double getBottomDist(int x, int y, bool a);
+	int getDiffTop(int y) const;
+	int getDiffBottom(int y) const;
 
 protected:
 	double dist(int x1, int y1, int x2, int y2);
