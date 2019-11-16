@@ -15,18 +15,17 @@ public:
 	World(SDL_Surface *screen, int nbr_wall, int gap);
 	~World();
   	void setBirds(std::vector<Bird> *birds);
-  	int getAvancement() const;
   	int getDistanceX(int index);
   	int getDistanceTop(int index);
   	int getDistanceBottom(int index);
 	bool draw_all(int fps);
+	void init();
 
 protected:
 	int m_nbr_wall, m_gap;
 	std::vector<Wall> walls;
 	bool m_countWall;
 	std::vector<Bird> *m_birds;
-	int m_distanceDone;
 	SDL_Surface *m_screen;
 };
 

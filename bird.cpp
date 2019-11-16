@@ -3,9 +3,10 @@ using namespace std;
 
 int Bird::m_instance = 0;
 
-Bird::Bird(SDL_Surface *screen,int x, int speed):m_screen(screen),m_x(x),m_y(200),forceY(0),m_point(0),alive(1),numero(m_instance),m_score(0),m_speed(speed)
+Bird::Bird(SDL_Surface *screen,int x, int speed):m_screen(screen),m_x(x),numero(m_instance),m_speed(speed)
 {
 	m_instance++;
+	init();
 }
 
 Bird::~Bird()
@@ -85,4 +86,13 @@ bool Bird::draw(int fps, Wall *target)
 void Bird::jump()
 {
 	forceY=-9;
+}
+
+void Bird::init()
+{
+	m_y = 200;
+	forceY = 0;
+	m_point = 0;
+	alive = 1;
+	m_score = 0;
 }

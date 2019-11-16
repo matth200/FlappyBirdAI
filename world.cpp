@@ -1,21 +1,13 @@
 #include "world.h"
 using namespace std;
 
-World::World(SDL_Surface *screen, int nbr_wall, int gap):m_screen(screen),m_nbr_wall(nbr_wall),m_gap(gap),m_countWall(0),m_distanceDone(0)
+World::World(SDL_Surface *screen, int nbr_wall, int gap):m_screen(screen),m_nbr_wall(nbr_wall),m_gap(gap),m_birds(0)
 {
-	for(int i(0);i<nbr_wall;i++)
-	{
-		walls.push_back(Wall(screen,WIDTH+(gap+80)*i));//+80 pour la taille du mur en largeur
-	}
+	init();
 }
 
 World::~World()
 {
-}
-
-int World::getAvancement() const
-{
-	return m_distanceDone;
 }
 
 int World::getDistanceX(int index){
@@ -82,7 +74,6 @@ bool World::draw_all(int fps)
 
 		//the wall goo and we register the avancement
 		it->draw(it->getPosX()-((collision)?0:WORLD_SPEED/fps));
-		m_distanceDone+=((collision)?0:WORLD_SPEED/fps);
 
 		//increase point if the bird pass through a wall
 		if(it->getPosX()+80/2<(*m_birds)[0].getPosX()&&!m_countWall)
@@ -112,4 +103,20 @@ bool World::draw_all(int fps)
 	}
 
 	return collision;
+}
+
+void World::init()
+{
+	walls.clear();
+	m_countWall = 0;
+	for(int i(0);i<m_nbr_wall;i++)
+	{
+		walls.push_back(Wall(m_screen,WIDTH+(m_gap+80)*i));//+80 pour la taille du mur en largeur
+	}
+
+	if(m_birds!=0)
+	{
+		for(int i(0);i<(*m_birds).size();i++)
+			(*m_birds)[i].init();
+	}
 }

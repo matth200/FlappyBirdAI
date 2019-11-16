@@ -18,6 +18,7 @@ public:
 	int getScore() const;
 	void increasePoint();
 	bool draw(int fps, Wall *target);
+	void init();
 	void jump();
 protected:
 	static int m_instance;

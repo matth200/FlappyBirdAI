@@ -68,6 +68,7 @@ int main(int argc , char *argv[])
 	pos_title.y = 200;
 
 	World world(screen,4,350);
+	int generation = 1;
 
 	vector<MachineLearning> brains;
 	vector<Bird> listeBirds;
@@ -117,7 +118,7 @@ int main(int argc , char *argv[])
 		}
 		SDL_FillRect(screen,0,SDL_MapRGB(screen->format,0,0,0));
 		 
-		Label = TTF_RenderText_Blended(police,(string("Point(s): ")+to_string(listeBirds[0].getPoint())).c_str(),SDL_Color({255,255,255}));
+		Label = TTF_RenderText_Blended(police,(string("Point(s): ")+to_string(listeBirds[0].getPoint())+" Generation: "+to_string(generation)).c_str(),SDL_Color({255,255,255}));
 		SDL_BlitSurface(Label,NULL,screen,&pos_label);
 
 		//calcul NeuralNetwork
@@ -151,8 +152,6 @@ int main(int argc , char *argv[])
 			{
 				listeBirds[i].jump();
 			}
-
-			cout << "bird n°" << i << " output=" << brains[i].getOutput(0) << endl;
 		}
 
 
@@ -160,13 +159,15 @@ int main(int argc , char *argv[])
 		if(world.draw_all(FPS))
 		{
 			//population all dead
-			SDL_BlitSurface(Title,NULL,screen,&pos_title);
+			//SDL_BlitSurface(Title,NULL,screen,&pos_title);
+			generation++;
 
 
 			Duet nullDuet;
 			nullDuet.pos = -1;
 			nullDuet.score = 0;
 
+			//tableau de score
 			vector<Duet> tab_score(NBR_POPULATION,nullDuet);
 
 			//on récupére et on trie les éléments
@@ -202,6 +203,9 @@ int main(int argc , char *argv[])
 			//on enregistre le premier si il dépasse 1600px
 			if(tab_score[0].score>=1600)
 				brains[tab_score[0].pos].saveTraining("goodBrain.ml");
+
+			//new generation
+			world.init();
 		}
 
 		SDL_Flip(screen);
