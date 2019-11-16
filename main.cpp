@@ -17,11 +17,17 @@
 #include "m_learning.h"
 
 #define FPS 30.0
-#define NBR_POPULATION 4
+#define NBR_POPULATION 10
 #define MAX_VIEW 400.0
 
 using namespace std;
 typedef chrono::high_resolution_clock::time_point time_point;
+
+struct Duet
+{
+	int pos;
+	int score;
+};
 
 int main(int argc , char *argv[])
 {
@@ -156,6 +162,46 @@ int main(int argc , char *argv[])
 			//population all dead
 			SDL_BlitSurface(Title,NULL,screen,&pos_title);
 
+
+			Duet nullDuet;
+			nullDuet.pos = -1;
+			nullDuet.score = 0;
+
+			vector<Duet> tab_score(NBR_POPULATION,nullDuet);
+
+			//on récupére et on trie les éléments
+			for(int i(0);i<NBR_POPULATION;i++)
+			{
+				Duet a;
+				a.pos = i;
+				a.score = listeBirds[i].getScore();
+
+				//trie des éléments
+				for(int j(0);j<tab_score.size();j++)
+				{
+					if(tab_score[j].score<a.score)
+					{
+						Duet precedent;
+						for(int z(j);z<tab_score.size();z++)
+						{
+							precedent = tab_score[z];
+							tab_score[z] = a;
+							a = precedent;
+						}
+						break;
+					}
+				}
+			}
+
+			for(int i(0);i<NBR_POPULATION;i++)
+			{
+				cout << "bird n°" << tab_score[i].pos << " score=" << tab_score[i].score << endl;
+			}
+			cout << "---------" << endl;
+
+			//on enregistre le premier si il dépasse 600px
+			if(tab_score[0].score>=800)
+				brains[tab_score[0].pos].saveTraining("goodBrain.ml");
 		}
 
 		SDL_Flip(screen);
