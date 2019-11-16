@@ -31,7 +31,7 @@ bool Bird::draw(int fps, Wall *target)
 		//on ajoute l'acceleration
 		m_y+= forceY;
 		//acceleration de chute
-		forceY+=300.0/pow(fps,2);
+		forceY+=600.0/pow(fps,2);
 	}
 	//stop when pass through the sky
 	if(m_y<20)
@@ -54,5 +54,5 @@ bool Bird::draw(int fps, Wall *target)
 
 void Bird::jump()
 {
-	forceY=-5;
+	forceY=-9;
 }
