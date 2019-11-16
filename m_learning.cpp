@@ -102,7 +102,15 @@ Neuron* NetworkNeuron::get_neuron(int index)
 	return &(neurons[index]);	
 }
 
+MachineLearning::MachineLearning()
+{}
+
 MachineLearning::MachineLearning(int sizeInput)
+{
+	open(sizeInput);
+}
+
+void MachineLearning::open(int sizeInput)
 {
 	Lines.push_back(NetworkNeuron(sizeInput,0));
 }
@@ -116,6 +124,27 @@ void MachineLearning::setInput(double *data)
 		Lines[0].get_neuron(i)->set_value(value);
 	}
 }
+
+void MachineLearning::setInput(char *data)
+{
+	double value = 0;
+	for(int i(0);i<Lines[0].get_number_neuron();i++)
+	{
+		value = (*((unsigned char*)(data+i)))/255.0;
+		Lines[0].get_neuron(i)->set_value(value);
+	}
+}
+
+void MachineLearning::setInput(char *data, int size, int cursor)
+{
+	double value = 0;
+	for(int i(0);i<size;i++)
+	{
+		value = (*((unsigned char*)(data+i)))/255.0;
+		Lines[0].get_neuron(cursor+i)->set_value(value);
+	}
+}
+
 
 void MachineLearning::setWeightRandom(int w, int b)
 {
@@ -179,6 +208,11 @@ int MachineLearning::numberNeuronIn(int i)
 int MachineLearning::getNumberColumn() const
 {
 	return Lines.size();
+}
+
+NetworkNeuron* MachineLearning::getNetwork(int i)
+{
+	return &(Lines[i]);
 }
 
 double MachineLearning::getPrecision(NetworkNeuron& result)

@@ -51,10 +51,15 @@ protected:
 class MachineLearning
 {
 public:
+	MachineLearning();
 	MachineLearning(int sizeInput);
+	void open(int sizeInput);
 	void setInput(double *data);
+	void setInput(char *data);
+	void setInput(char *data, int size, int cursor);
 	void setWeightRandom(int w = 2, int b = 2);
     void calcul();
+    NetworkNeuron* getNetwork(int i);
 	double getZ(int l, int j);	
 	double getOutput(int index);
     int numberNeuronIn(int i);	
