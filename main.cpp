@@ -199,8 +199,8 @@ int main(int argc , char *argv[])
 			}
 			cout << "---------" << endl;
 
-			//on enregistre le premier si il dépasse 600px
-			if(tab_score[0].score>=800)
+			//on enregistre le premier si il dépasse 1600px
+			if(tab_score[0].score>=1600)
 				brains[tab_score[0].pos].saveTraining("goodBrain.ml");
 		}
 
