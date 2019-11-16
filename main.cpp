@@ -117,8 +117,18 @@ int main(int argc , char *argv[])
 			}
 		}
 		SDL_FillRect(screen,0,SDL_MapRGB(screen->format,0,0,0));
+
+		//on récupére le score d'oiseaux max
+		int pointMax = 0;
+		for(int i(0);i<listeBirds.size();i++)
+		{
+			if(listeBirds[i].getPoint()>pointMax)
+			{
+				pointMax = listeBirds[i].getPoint();
+			}
+		}
 		 
-		Label = TTF_RenderText_Blended(police,(string("Point(s): ")+to_string(listeBirds[0].getPoint())+" Generation: "+to_string(generation)).c_str(),SDL_Color({255,255,255}));
+		Label = TTF_RenderText_Blended(police,(string("Point(s): ")+to_string(pointMax)+" Generation: "+to_string(generation)).c_str(),SDL_Color({255,255,255}));
 		SDL_BlitSurface(Label,NULL,screen,&pos_label);
 
 		//calcul NeuralNetwork
