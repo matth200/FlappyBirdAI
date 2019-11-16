@@ -225,30 +225,40 @@ int main(int argc , char *argv[])
 			//new generation
 			generation++;
 			vector<MachineLearning> newBrains;
+
+			//first
+			newBrains.push_back(brains[tab_score[0].pos]);
+			
 			while(newBrains.size()<brains.size()-NEW_RANDOM_BRAIN)
 			{
 				int momIndex = selectionParent(tab_score), dadIndex;
 				//on évite que le père et la mère soit la même personne 
 				while((dadIndex = selectionParent(tab_score))==momIndex);
+				//cout << "Dad: " << dadIndex << " Mom: " << momIndex << endl;
 
+				//cout << "getAdn parents" << endl;
 				//preparation adn parent
 				vector<double> adnMom, adnDad;
 				getAdn(brains[momIndex],adnMom);
 				getAdn(brains[dadIndex],adnDad);
 
+				//cout << "makeDammnBaby()" << endl;
 				//get adnBaby
 				vector<double> adnBaby; 
 				makeDammnBaby(adnMom,adnDad,adnBaby);
 
+				//cout << "mutate" << endl;
 				//mutate the adn
 				mutateAdn(adnBaby);
 
+				//cout << "setAdn() babyBrain" << endl;
 				//make the babyBrain with it
 				MachineLearning babyBrain = brains[0];
 				setAdn(babyBrain,adnBaby);
 				newBrains.push_back(babyBrain);
 			}
 
+			//cout << "Random" << endl;
 			//new random brain
 			for(int i(0);i<NEW_RANDOM_BRAIN;i++)
 			{
@@ -256,11 +266,14 @@ int main(int argc , char *argv[])
 				m.setWeightRandom(RANDOM_VALUE,RANDOM_VALUE);
 				newBrains.push_back(m);
 			}
+			//cout << "Size --> " << newBrains.size() << endl;
 
 			//on place la nouvelle population
 			brains.clear();
 			brains.resize(0);
 			brains = newBrains;
+
+			cout << "world init()" << endl;
 
 			//start new game
 			world.init();
@@ -371,9 +384,9 @@ int selectionParent(vector<Duet> &tab)
 
 	int arrow = rand()%sumTotal;
 	int sum = 0;
-	for(int i(0);i<sumTotal;i++)
+	for(int i(0);i<tab.size();i++)
 	{
-		if(arrow<=sum)
+		if(arrow<sum)
 		{
 			return i;
 		}
