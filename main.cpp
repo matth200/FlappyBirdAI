@@ -17,11 +17,11 @@
 #include "m_learning.h"
 
 #define FPS 30.0
-#define NBR_POPULATION 10
+#define NBR_POPULATION 20
 #define MAX_VIEW 400.0
 #define MUTATE_RATE 0.08
 #define RANDOM_VALUE 50
-#define NEW_RANDOM_BRAIN 1
+#define NEW_RANDOM_BRAIN 5
 
 using namespace std;
 typedef chrono::high_resolution_clock::time_point time_point;
@@ -234,7 +234,7 @@ int main(int argc , char *argv[])
 				int momIndex = selectionParent(tab_score), dadIndex;
 				//on évite que le père et la mère soit la même personne 
 				while((dadIndex = selectionParent(tab_score))==momIndex);
-				//cout << "Dad: " << dadIndex << " Mom: " << momIndex << endl;
+				cout << "Dad: " << dadIndex << " Mom: " << momIndex << endl;
 
 				//cout << "getAdn parents" << endl;
 				//preparation adn parent
@@ -356,7 +356,7 @@ void mutateAdn(vector<double> &adn)
 	{
 		if(rand()%100<MUTATE_RATE*100)
 		{
-			adn[i] = rand()%(RANDOM_VALUE*1000)/1000.0-RANDOM_VALUE/2.0;
+			adn[i] += (rand()%(RANDOM_VALUE*1000)/1000.0-RANDOM_VALUE/2.0)/2.0;
 		}
 	}
 }
@@ -366,7 +366,7 @@ void makeDammnBaby(vector<double> &adnMom, vector<double> &adnDad, vector<double
 	int index = rand()%(adnMom.size()-1)+1;
 	for(int i(0);i<adnMom.size();i++)
 	{
-		if(i<index){
+		if(index>=i){
 			adnBaby.push_back(adnMom[i]);
 		}else{
 			adnBaby.push_back(adnDad[i]);

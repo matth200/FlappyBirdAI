@@ -75,9 +75,15 @@ bool Bird::draw(int fps, Wall *target)
 	if(m_y>=HEIGHT-20)
 		collision = true;
 
-	if(collision)
+	if(m_y<=20)
+		collision = true;
+
+	if(collision&&alive)
+	{
 		alive = 0;
-	else
+		m_score+=m_point*1000;
+	}
+	else if(!collision)
 		m_score+=m_speed/fps;
 	
 	return collision; 

@@ -78,14 +78,18 @@ bool World::draw_all(int fps)
 		//increase point if the bird pass through a wall
 		if(it->getPosX()+80/2<(*m_birds)[0].getPosX()&&!m_countWall)
 		{
+			int max = 0;
 			for(int i(0);i<m_birds->size();i++)
 			{
 				if((*m_birds)[i].isAlive())
 				{
 					(*m_birds)[i].increasePoint();
+					//get the max
+					if((*m_birds)[i].getPoint()>max)
+						max = (*m_birds)[i].getPoint();
 				}
 			}
-			cout << (*m_birds)[0].getPoint() << endl;
+			cout << max << endl;
 
 			m_countWall = 1;
 		}
