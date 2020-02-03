@@ -154,9 +154,9 @@ void MachineLearning::setWeightRandom(int w, int b)
 		{
 			for(int i(0);i<Lines[l+1].get_neuron(j)->numberConnection();i++)
 			{
-				Lines[l+1].get_neuron(j)->set_weight(i,rand()%(w*1000)/1000.0-w/2.0);  
+				Lines[l+1].get_neuron(j)->set_weight(i,rand()%(w*10000)/10000.0-w/2.0);  
 			}
-			Lines[l+1].get_neuron(j)->set_bias(rand()%(b*1000)/1000.0-b/2.0);
+			Lines[l+1].get_neuron(j)->set_bias(rand()%(b*10000)/10000.0-b/2.0);
 		}
 	}
 }

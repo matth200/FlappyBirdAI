@@ -19,9 +19,9 @@
 #define FPS 30.0
 #define NBR_POPULATION 20
 #define MAX_VIEW 400.0
-#define MUTATE_RATE 0.08
+#define MUTATE_RATE 0.10
 #define RANDOM_VALUE 50
-#define NEW_RANDOM_BRAIN 5
+#define NEW_RANDOM_BRAIN 10
 
 using namespace std;
 typedef chrono::high_resolution_clock::time_point time_point;
@@ -356,7 +356,7 @@ void mutateAdn(vector<double> &adn)
 	{
 		if(rand()%100<MUTATE_RATE*100)
 		{
-			adn[i] += (rand()%(RANDOM_VALUE*1000)/1000.0-RANDOM_VALUE/2.0)/2.0;
+			adn[i] += (rand()%(RANDOM_VALUE*10000)/10000.0-RANDOM_VALUE/2.0)/5.0;
 		}
 	}
 }
@@ -366,7 +366,7 @@ void makeDammnBaby(vector<double> &adnMom, vector<double> &adnDad, vector<double
 	int index = rand()%(adnMom.size()-1)+1;
 	for(int i(0);i<adnMom.size();i++)
 	{
-		if(index>=i){
+		if(rand()%2){
 			adnBaby.push_back(adnMom[i]);
 		}else{
 			adnBaby.push_back(adnDad[i]);
