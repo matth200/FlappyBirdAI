@@ -1,0 +1,32 @@
+generation ---> 1
+bird n°0 score=228
+bird n°1 score=228
+bird n°5 score=228
+bird n°6 score=228
+bird n°9 score=228
+bird n°11 score=228
+bird n°12 score=228
+bird n°19 score=228
+bird n°2 score=114
+bird n°3 score=114
+bird n°4 score=114
+bird n°7 score=114
+bird n°8 score=114
+bird n°10 score=114
+bird n°13 score=114
+bird n°14 score=114
+bird n°15 score=114
+bird n°16 score=114
+bird n°17 score=114
+bird n°18 score=114
+\---------\
+Dad: 7 Mom: 3
+Dad: 6 Mom: 8
+Dad: 13 Mom: 3
+Dad: 10 Mom: 2
+Dad: 13 Mom: 0
+Dad: 13 Mom: 14
+Dad: 7 Mom: 14
+Dad: 3 Mom: 19
+Dad: 5 Mom: 12
+world init()
