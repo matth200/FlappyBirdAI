@@ -1,0 +1,1 @@
+Created symlink /etc/systemd/system/multi-user.target.wants/rC-local.service → /etc/systemd/system/rC-local.service.
