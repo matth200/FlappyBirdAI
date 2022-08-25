@@ -22,6 +22,8 @@ public:
 	double getBottomDist(int x, int y, bool a);
 	int getDiffTop(int y) const;
 	int getDiffBottom(int y) const;
+	int getRandom() const;
+	void setRandom(int rd);
 
 protected:
 	double dist(int x1, int y1, int x2, int y2);
@@ -29,6 +31,7 @@ protected:
 	int m_min_wall, m_hole_size, m_width; 
 	SDL_Surface *m_screen;
 	int m_top_hole, m_bottom_hole;
+	int random;
 };
 
 //surcharge pour detection de collision

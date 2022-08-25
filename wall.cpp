@@ -3,11 +3,24 @@ using namespace std;
 
 Wall::Wall(SDL_Surface *screen, int x, int width, int min_wall, int hole_size):m_screen(screen),m_width(width),m_min_wall(min_wall),m_hole_size(hole_size),m_x(x)
 {
-	m_top_hole = rand()%(HEIGHT-m_min_wall*2-m_hole_size);
+	random = rand();
+	m_top_hole = random%(HEIGHT-m_min_wall*2-m_hole_size);
 	m_bottom_hole = HEIGHT-(m_top_hole+m_hole_size+m_min_wall*2);
 }
 Wall::~Wall()
 {
+}
+
+int Wall::getRandom() const
+{
+	return random;
+}
+
+void Wall::setRandom(int rd)
+{
+	random = rd;
+	m_top_hole = random%(HEIGHT-m_min_wall*2-m_hole_size);
+	m_bottom_hole = HEIGHT-(m_top_hole+m_hole_size+m_min_wall*2);
 }
 
 void Wall::draw(int x)

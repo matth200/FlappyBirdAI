@@ -17,11 +17,11 @@
 #include "m_learning.h"
 
 #define FPS 30.0
-#define NBR_POPULATION 20
+#define NBR_POPULATION 100
 #define MAX_VIEW 400.0
-#define MUTATE_RATE 0.10
+#define MUTATE_RATE 0.08
 #define RANDOM_VALUE 50
-#define NEW_RANDOM_BRAIN 10
+#define NEW_RANDOM_BRAIN 25
 
 using namespace std;
 typedef chrono::high_resolution_clock::time_point time_point;

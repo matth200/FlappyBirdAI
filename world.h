@@ -26,6 +26,8 @@ protected:
 	std::vector<Wall> walls;
 	bool m_countWall;
 	std::vector<Bird> *m_birds;
+	int m_index;
+	std::vector<int> levels;
 	SDL_Surface *m_screen;
 };
 

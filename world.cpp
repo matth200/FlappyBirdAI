@@ -4,6 +4,7 @@ using namespace std;
 World::World(SDL_Surface *screen, int nbr_wall, int gap):m_screen(screen),m_nbr_wall(nbr_wall),m_gap(gap),m_birds(0)
 {
 	init();
+	m_index = 0;
 }
 
 World::~World()
@@ -102,6 +103,16 @@ bool World::draw_all(int fps)
 
 			//nouveau mur avec une distance de gap+80 avec le dernier mur
 			walls.push_back(Wall(m_screen,walls[walls.size()-1].getPosX()+m_gap+80));
+			m_index++;
+			//on enregistre la nouvelle valeur
+			if(m_index>levels.size()){
+				levels.push_back(walls[walls.size()-1].getRandom());
+			}
+			//on reprends l'ancienne valeur sinon
+			else{
+				walls[walls.size()-1].setRandom(levels[m_index-1]);
+				//cout << "---" << m_index << "," <<  levels[m_index-1]%50 << endl;
+			}
 			m_countWall = 0;
 		}
 	}
@@ -116,6 +127,16 @@ void World::init()
 	for(int i(0);i<m_nbr_wall;i++)
 	{
 		walls.push_back(Wall(m_screen,WIDTH+(m_gap+80)*i));//+80 pour la taille du mur en largeur
+
+		//si le mur a déjà été capté on remets le random 
+		if(levels.size()>i){
+			walls[i].setRandom(levels[i]);
+		}
+		//sinon on enregistre
+		else{
+			levels.push_back(walls[i].getRandom());
+		}
+		m_index++;
 	}
 
 	if(m_birds!=0)
