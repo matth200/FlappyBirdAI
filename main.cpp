@@ -9,12 +9,12 @@
 #include <vector>
 
 
-#include "draw.h"
-#include "wall.h"
-#include "bird.h"
-#include "world.h"
+#include "src/draw.h"
+#include "src/wall.h"
+#include "src/bird.h"
+#include "src/world.h"
 
-#include "m_learning.h"
+#include "src/m_learning.h"
 
 #define FPS 30.0
 #define NBR_POPULATION 100
@@ -62,12 +62,12 @@ int main(int argc , char *argv[])
 	time_point start, end;
 	int deltaTime = 0;
 
-	TTF_Font *police = TTF_OpenFont("pixel_font.ttf",300);
+	TTF_Font *police = TTF_OpenFont("../ressources/pixel_font.ttf",300);
 
 	SDL_Surface *Label = 0, *Title = TTF_RenderText_Blended(police,"Perdu",SDL_Color({255,255,255}));
 
 	TTF_CloseFont(police);
-	police = TTF_OpenFont("pixel_font.ttf",20);
+	police = TTF_OpenFont("../ressources/pixel_font.ttf",20);
 
 	SDL_Rect pos_label, pos_title;
 	pos_label.x = 20;
@@ -220,7 +220,7 @@ int main(int argc , char *argv[])
 
 			//on enregistre le premier si il dépasse 1600px
 			if(tab_score[0].score>=1600)
-				brains[tab_score[0].pos].saveTraining("goodBrain.ml");
+				brains[tab_score[0].pos].saveTraining("../topbrain/goodBrain.ml");
 
 			//new generation
 			generation++;

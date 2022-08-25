@@ -9,6 +9,7 @@ World::World(SDL_Surface *screen, int nbr_wall, int gap):m_screen(screen),m_nbr_
 
 World::~World()
 {
+	
 }
 
 int World::getDistanceX(int index){
