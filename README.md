@@ -4,6 +4,18 @@
 
 It's flappybird game but I add some genetic algorithm with machine learning to make a clever bird which can travel the world of flappybird by itself.
 
+In training<br/>
+
+![My Images](documentation/3.png)
+
+It evolves through generation
+
+![My Images](documentation/1.png)
+
+![My Images](documentation/2.png)
+
+![My Images](documentation/4.png)
+
 <h3>How it works</h3>
 
 It starts with several birds with "brain", the brain is just a neural network with random biases and weights.
